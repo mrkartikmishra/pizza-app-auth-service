@@ -1,0 +1,25 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "An auth service of the online Pizza delivery application",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrkartikmishra/pizza-app-auth-service.git"
+  },
+  "keywords": [
+    "auth-service",
+    "auth",
+    "authentication"
+  ],
+  "author": "Kartik Mishra <kartikmishra.km44@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrkartikmishra/pizza-app-auth-service/issues"
+  },
+  "homepage": "https://github.com/mrkartikmishra/pizza-app-auth-service#readme"
+}
