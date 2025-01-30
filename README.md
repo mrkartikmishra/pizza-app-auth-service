@@ -46,3 +46,19 @@ npx tsc (to compile typescript code to javascript)
 npm install -D @types/node
 
 ```
+
+## Prettier Setup
+
+```Markdown
+
+npm install --save-dev --save-exact prettier
+
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
+
+node --eval "fs.writeFileSync('.prettierignore','# Ignore artifacts:\nbuild\ncoverage\n')"
+
+npx prettier . --check
+
+npx prettier . --write
+
+```

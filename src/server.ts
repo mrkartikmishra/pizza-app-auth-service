@@ -1,1 +1,1 @@
-console.log("Welcome to online Pizza delivery application!!");
+console.log('Welcome to online Pizza delivery application!!');
