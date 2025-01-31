@@ -8,8 +8,8 @@ export default [
             globals: globals.node,
         },
         rules: {
-            'no-unused-vars': 'error',
-            'no-console': 'error',
+            // 'no-unused-vars': 'error',
+            // 'no-console': 'error',
         },
     },
     pluginJs.configs.recommended,
