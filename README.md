@@ -71,4 +71,8 @@ npm install --save-dev eslint @eslint/js typescript-eslint
 
 npx eslint .
 
+"eslint:check": "eslint ."
+
+"eslint:fix": "eslint . --fix"
+
 ```
