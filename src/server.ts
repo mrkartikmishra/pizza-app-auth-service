@@ -1,7 +1,7 @@
 console.log('Welcome to online Pizza delivery application!!');
 
 function getName(name: string) {
-    return name;
+    return 'Hi ' + name;
 }
 
 getName('Kartik');
