@@ -1,10 +1,17 @@
+import app from './app';
 import { Config } from './config';
 
-console.log('Welcome to online Pizza delivery application!!');
+function startServer() {
+    try {
+        const PORT = Config.PORT;
 
-function getName(name: string) {
-    console.log('PORT=', Config.PORT);
-    return 'Hello ' + name;
+        app.listen(PORT, () => {
+            console.log(`Server listening on PORT ${PORT}`);
+        });
+    } catch (err) {
+        console.log('ERROR Occurred::', err);
+        process.exit(1);
+    }
 }
 
-getName('Kartik');
+startServer();

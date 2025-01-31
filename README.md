@@ -102,3 +102,24 @@ in pre-commit file
 npx lint-staged
 
 ```
+
+## Expree Server Setup
+
+```Markdown
+
+npm install nodemon
+
+npm install ts-node
+
+npm install express @types/express
+
+in package.json
+---------------
+
+script: {
+    "dev": "nodemon src/server.ts" //(nodemon internally use ts-node to compile and run .ts files)
+}
+
+npm run dev
+
+```
