@@ -7,6 +7,7 @@ export default [
         languageOptions: {
             globals: globals.node,
         },
+        ignores: ['/dist', '/node_modules'],
         rules: {
             // 'no-unused-vars': 'error',
             // 'no-console': 'error',
