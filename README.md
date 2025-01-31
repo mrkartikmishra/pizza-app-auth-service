@@ -62,3 +62,13 @@ npx prettier . --check
 npx prettier . --write
 
 ```
+
+## Eslint Setup
+
+```Markdown
+
+npm install --save-dev eslint @eslint/js typescript-eslint
+
+npx eslint .
+
+```
