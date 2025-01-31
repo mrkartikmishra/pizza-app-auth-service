@@ -76,3 +76,29 @@ npx eslint .
 "eslint:fix": "eslint . --fix"
 
 ```
+
+## GIT hooks husky Setup
+
+```Markdown
+
+npm install --save-dev husky
+
+npx husky init
+
+npm install --save-dev lint-staged
+
+in package.json:
+----------------
+
+    "lint-staged": {
+        "*.js": [
+            "npm run format:fix",
+            "npm run lint:fix"
+        ]
+    }
+
+in pre-commit file
+------------------
+npx lint-staged
+
+```
