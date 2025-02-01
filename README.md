@@ -131,8 +131,6 @@ npm run dev
 npm install winston
 
 
-
-
 import Winston from 'winston';
 import { Config } from '.';
 
@@ -154,9 +152,5 @@ const logger = Winston.createLogger({
 });
 
 export default logger;
-
-```
-
-```
 
 ```
