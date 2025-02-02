@@ -180,3 +180,30 @@ app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
 });
 
 ```
+
+## Automated Test Setup
+
+```Markdown
+
+npm install --save-dev jest
+
+npm install --save-dev ts-jest
+
+npm install --save-dev @types/jest
+
+npx ts-jest config:init
+
+npm install supertest --save-dev
+
+npm install @types/supertest --save-dev
+
+
+    import request from 'supertest';
+
+    it('Should return 200 status code', async () => {
+        const response = await request(app).get('/').send();
+
+        expect(response.statusCode).toBe(200);
+    });
+
+```
