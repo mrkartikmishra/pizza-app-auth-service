@@ -154,3 +154,29 @@ const logger = Winston.createLogger({
 export default logger;
 
 ```
+
+## Error Handler Setup
+
+```Markdown
+
+npm install http-errors
+
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+    logger.error(err.message);
+
+    const statusCode = err.status || 500;
+
+    res.status(statusCode).json({
+        errors: [
+            {
+                type: err.name,
+                msg: err.message,
+                status: statusCode,
+                path: '',
+                location: '',
+            },
+        ],
+    });
+});
+
+```
