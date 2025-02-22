@@ -16,7 +16,8 @@
       "start": "ts-node src/index.ts",
       "migration:generate": "typeorm-ts-node-commonjs migration:generate",
       "migration:run": "typeorm-ts-node-commonjs migration:run",
-      "migration:create": "typeorm-ts-node-commonjs migration:create"
+      "migration:create": "typeorm-ts-node-commonjs migration:create",
+      "typeorm": "typeorm-ts-node-commonjs"
    },
    "author": "Kartik Mishra<kartikmishra.km44@gmail.com>",
    "license": "ISC",
@@ -67,7 +68,7 @@
       "http-errors": "^2.0.0",
       "jsonwebtoken": "^9.0.2",
       "jwks-rsa": "^3.1.0",
-      "pg": "^8.13.3",
+      "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "rsa-pem-to-jwk": "^1.1.3",
       "typeorm": "0.3.17",
