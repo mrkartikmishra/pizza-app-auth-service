@@ -48,6 +48,23 @@ describe('POST /auth/register', () => {
                 (response.headers as Record<string, string>)['content-type'],
             ).toEqual(expect.stringContaining('json'));
         });
+
+        it('should persists the data in the database', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: 'Kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gmail.com',
+                password: 'secret',
+            };
+
+            //Act
+
+            await request(app).post('/auth/register').send(userData);
+
+            //Assert
+        });
     });
 
     describe('All fields NOT given properly', () => {});
