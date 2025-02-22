@@ -1,9 +1,9 @@
-import request from 'supertest';
-import app from '../../src/app';
-import { DataSource } from 'typeorm';
-import { User } from '../../src/entity/User';
 import { AppDataSource } from '../../src/config/db';
+import { DataSource } from 'typeorm';
 import { Roles } from '../../src/constants';
+import { User } from '../../src/entity/User';
+import app from '../../src/app';
+import request from 'supertest';
 
 describe('POST /auth/register', () => {
     let connection: DataSource;
@@ -143,6 +143,30 @@ describe('POST /auth/register', () => {
             const users = await repository.find();
             expect(users[0]).toHaveProperty('role');
             expect(users[0].role).toBe(Roles.CUSTOMER);
+        });
+
+        it('should store hashed password in the database', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: 'Kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gamil.com',
+                password: 'secret',
+            };
+
+            //Act
+
+            await request(app).post('/auth/register').send(userData);
+
+            //Assert
+
+            const usersRepository = AppDataSource.getRepository(User);
+            const users = await usersRepository.find();
+            expect(users[0].password).not.toBe(userData.password);
+
+            expect(users[0].password).toHaveLength(60);
+            expect(users[0].password).toMatch(/^\$2b\$\d+\$/);
         });
     });
 
