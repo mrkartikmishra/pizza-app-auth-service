@@ -248,3 +248,39 @@ Docker run command
 docker run --rm -it -v $(pwd):/usr/src/app -v /usr/src/app/node_modules --env-file $(pwd)/.env -p 5501:5501 -e NODE_ENV=development auth-prep:dev
 
 ```
+
+## Setting up PostgreSQL in a Docker Container with Persistent Volume
+
+```Markdown
+
+Pull the PostgreSQL Docker image
+--------------------------------
+
+docker pull postgres
+
+Create a Persistent Volume
+--------------------------
+
+docker volume create mernpgdata
+
+
+Run the PostgreSQL container with the volume attached
+-----------------------------------------------------
+
+docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
+
+Access your PostgreSQL
+---------------------
+
+Using GUI like
+--------------
+DBGate
+
+PgAdmin
+
+Access PostgreSQL instance by using any database tool or the psql command. For psql
+-----------------------------------------------------------------------------------
+
+docker exec -it mernpg-container psql -U root
+
+```
