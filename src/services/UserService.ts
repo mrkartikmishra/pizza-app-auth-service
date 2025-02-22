@@ -6,7 +6,7 @@ export class UserService {
     constructor(private _userRepository: Repository<User>) {}
 
     async create({ firstName, lastName, email, password }: IUserData) {
-        await this._userRepository.save({
+        return await this._userRepository.save({
             firstName,
             lastName,
             email,

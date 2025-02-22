@@ -8,13 +8,13 @@ export class AuthController {
     async register(req: ICreateUserRequest, res: Response) {
         const { firstName, lastName, email, password } = req.body;
 
-        await this._userService.create({
+        const user = await this._userService.create({
             firstName,
             lastName,
             email,
             password,
         });
 
-        res.status(201).json({ msg: 'success' });
+        res.status(201).json({ id: user.id });
     }
 }
