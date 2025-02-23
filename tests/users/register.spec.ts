@@ -34,7 +34,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -55,7 +55,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -78,7 +78,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -103,7 +103,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -130,7 +130,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -152,7 +152,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gamil.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -176,7 +176,7 @@ describe('POST /auth/register', () => {
                 firstName: 'kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -205,7 +205,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: '',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -233,7 +233,7 @@ describe('POST /auth/register', () => {
                 firstName: '',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -261,7 +261,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: '',
                 email: 'kartikmishra@gmail.com',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -318,7 +318,7 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: ' kartikmishra@gmail.com ',
-                password: 'secret',
+                password: 'secretpassword',
             };
 
             //Act
@@ -337,6 +337,29 @@ describe('POST /auth/register', () => {
                 firstName: 'Kartik',
                 lastName: 'Mishra',
                 email: 'kartikmishra@gm',
+                password: 'secretpassword',
+            };
+
+            //Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+            expect(response.statusCode).toBe(400);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(users).toHaveLength(0);
+        });
+
+        it('should return 400 status code if password length is less than 8 characters', async () => {
+            //Arrange
+            const userData = {
+                firstName: 'Kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gmail.com',
                 password: 'secret',
             };
 
