@@ -225,6 +225,90 @@ describe('POST /auth/register', () => {
             expect(response.statusCode).toBe(400);
             expect(users).toHaveLength(0);
         });
+
+        it('should return 400 status code if firstName field is missing', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: '',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gmail.com',
+                password: 'secret',
+            };
+
+            //Act
+
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+
+            //Assert
+            expect(response.statusCode).toBe(400);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(response.statusCode).toBe(400);
+            expect(users).toHaveLength(0);
+        });
+
+        it('should return 400 status code if lastName field is missing', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: 'Kartik',
+                lastName: '',
+                email: 'kartikmishra@gmail.com',
+                password: 'secret',
+            };
+
+            //Act
+
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+
+            //Assert
+            expect(response.statusCode).toBe(400);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(response.statusCode).toBe(400);
+            expect(users).toHaveLength(0);
+        });
+
+        it('should return 400 status code if password field is missing', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: 'Kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gmail.com',
+                password: '',
+            };
+
+            //Act
+
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+
+            //Assert
+            expect(response.statusCode).toBe(400);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(response.statusCode).toBe(400);
+            expect(users).toHaveLength(0);
+        });
     });
 
     describe('Fields are not in proper format', () => {
@@ -245,6 +329,29 @@ describe('POST /auth/register', () => {
             const users = await userRepository.find();
 
             expect(users[0].email).toBe('kartikmishra@gmail.com');
+        });
+
+        it('should return 400 status code if email is not a valid email', async () => {
+            //Arrange
+            const userData = {
+                firstName: 'Kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gm',
+                password: 'secret',
+            };
+
+            //Act
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+            expect(response.statusCode).toBe(400);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(users).toHaveLength(0);
         });
     });
 });
