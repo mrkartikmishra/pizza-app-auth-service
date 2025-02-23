@@ -1,7 +1,9 @@
 import { NextFunction, Response } from 'express';
+
 import { ICreateUserRequest } from '../types/user.types';
-import { UserService } from '../services/UserService';
 import { Logger } from 'winston';
+import { UserService } from '../services/UserService';
+import { validationResult } from 'express-validator';
 
 export class AuthController {
     constructor(
@@ -10,6 +12,13 @@ export class AuthController {
     ) {}
 
     async register(req: ICreateUserRequest, res: Response, next: NextFunction) {
+        //check email is present or not
+        const result = validationResult(req);
+
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
+
         const { firstName, lastName, email, password } = req.body;
 
         this._logger.debug('New user registration request', {
