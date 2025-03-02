@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { Roles } from '../../src/constants';
 import { User } from '../../src/entity/User';
 import app from '../../src/app';
+import { isJwt } from '../utils';
 import request from 'supertest';
 
 describe('POST /auth/register', () => {
@@ -194,6 +195,53 @@ describe('POST /auth/register', () => {
 
             expect(response.statusCode).toBe(400);
             expect(users).toHaveLength(1);
+        });
+
+        it('should return valid access token and refresh token', async () => {
+            //Arrange
+
+            const userData = {
+                firstName: 'kartik',
+                lastName: 'Mishra',
+                email: 'kartikmishra@gmail.com',
+                password: 'secretpassword',
+            };
+
+            //Act
+
+            const response = await request(app)
+                .post('/auth/register')
+                .send(userData);
+
+            //Assert
+
+            let accessToken: string | null = null;
+            let refreshToken: string | null = null;
+
+            interface Headers {
+                ['set-cookie']: string[];
+            }
+
+            const cookies =
+                (response.headers as unknown as Headers)['set-cookie'] || [];
+
+            cookies.forEach((cookie) => {
+                if (cookie.startsWith('accessToken=')) {
+                    accessToken = cookie.split(';')[0].split('=')[1];
+                }
+
+                if (cookie.startsWith('refreshToken=')) {
+                    refreshToken = cookie.split(';')[0].split('=')[1];
+                }
+            });
+
+            console.log(accessToken);
+
+            expect(accessToken).not.toBeNull();
+            expect(refreshToken).not.toBeNull();
+
+            expect(isJwt(accessToken)).toBeTruthy();
+            expect(isJwt(refreshToken)).toBeTruthy();
         });
     });
 
