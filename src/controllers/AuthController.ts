@@ -1,9 +1,11 @@
 import { NextFunction, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
+import { AppDataSource } from '../config/db';
 import { Config } from '../config';
 import { ICreateUserRequest } from '../types/user.types';
 import { Logger } from 'winston';
+import { RefreshToken } from '../entity/RefreshToken';
 import { UserService } from '../services/UserService';
 import createHttpError from 'http-errors';
 import fs from 'fs';
@@ -78,6 +80,18 @@ export class AuthController {
                 httpOnly: true,
             });
 
+            // Persists refresh token in the DB
+
+            const refreshTokenRepository =
+                AppDataSource.getRepository(RefreshToken);
+
+            const YEAR_IN_MS = 1000 * 60 * 60 * 24 * 365; // 1 year
+
+            const newRefreshToken = await refreshTokenRepository.save({
+                expiresAt: new Date(Date.now() + YEAR_IN_MS),
+                user: user,
+            });
+
             const refreshToken = jwt.sign(
                 payload,
                 Config.REFRESH_TOKEN_SECRET!,
@@ -85,6 +99,7 @@ export class AuthController {
                     algorithm: 'HS256',
                     expiresIn: '1y',
                     issuer: 'auth-service',
+                    jwtid: String(newRefreshToken.id),
                 },
             );
 
