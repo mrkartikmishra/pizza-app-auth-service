@@ -2,6 +2,8 @@ import express, { NextFunction, Request, Response } from 'express';
 
 import { AppDataSource } from '../config/db';
 import { AuthController } from '../controllers/AuthController';
+import { RefreshToken } from '../entity/RefreshToken';
+import { TokenService } from '../services/TokenService';
 import { User } from '../entity/User';
 import { UserService } from '../services/UserService';
 import logger from '../config/logger';
@@ -11,7 +13,9 @@ const router = express.Router();
 
 const userReposotory = AppDataSource.getRepository(User);
 const userService = new UserService(userReposotory);
-const authController = new AuthController(userService, logger);
+const refreshTokenRepository = AppDataSource.getRepository(RefreshToken);
+const tokenService = new TokenService(refreshTokenRepository);
+const authController = new AuthController(userService, logger, tokenService);
 
 router.post(
     '/register',
