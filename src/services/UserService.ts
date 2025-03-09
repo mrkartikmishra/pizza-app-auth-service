@@ -42,4 +42,14 @@ export class UserService {
             throw error;
         }
     }
+
+    async findByEmail(email: string) {
+        const user = this._userRepository.findOne({
+            where: {
+                email,
+            },
+        });
+
+        return user;
+    }
 }
