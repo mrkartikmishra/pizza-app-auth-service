@@ -236,8 +236,6 @@ describe('POST /auth/register', () => {
                 }
             });
 
-            console.log(accessToken);
-
             expect(accessToken).not.toBeNull();
             expect(refreshToken).not.toBeNull();
 

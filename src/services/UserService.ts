@@ -52,4 +52,14 @@ export class UserService {
 
         return user;
     }
+
+    async findById(id: number) {
+        const user = this._userRepository.findOne({
+            where: {
+                id,
+            },
+        });
+
+        return user;
+    }
 }

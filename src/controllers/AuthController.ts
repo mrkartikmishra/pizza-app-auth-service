@@ -1,7 +1,7 @@
+import { AuthRequest, ICreateUserRequest } from '../types/user.types';
 import { NextFunction, Response } from 'express';
 
 import { CredentialService } from '../services/CredentialService';
-import { ICreateUserRequest } from '../types/user.types';
 import { JwtPayload } from 'jsonwebtoken';
 import { Logger } from 'winston';
 import { TokenService } from '../services/TokenService';
@@ -162,5 +162,10 @@ export class AuthController {
         this._logger.info('User logged in successfully!!');
 
         res.status(200).json({ id: user.id });
+    }
+
+    async self(req: AuthRequest, res: Response) {
+        const user = await this._userService.findById(Number(req.auth.sub));
+        res.json(user);
     }
 }
